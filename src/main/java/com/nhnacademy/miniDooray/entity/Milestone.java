@@ -1,21 +1,24 @@
-package entity;
+package com.nhnacademy.miniDooray.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tags")
-public class Tag {
+@Table(name = "milestones")
+public class Milestone {
+
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tag_id")
-    private Long id;
+    @Column(name = "milestone_id")
+    private long id;
 
     @NotNull
     @ManyToOne
@@ -23,5 +26,6 @@ public class Tag {
 
     @NotNull
     @Size(max = 50)
-    private String tagName;
+    private String milestoneName;
+
 }

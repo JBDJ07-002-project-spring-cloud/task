@@ -1,4 +1,4 @@
-package entity;
+package com.nhnacademy.miniDooray.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
