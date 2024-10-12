@@ -31,10 +31,12 @@ public class QueryDslRepositoryStub {
                 .fetchOne();
     }
 
-    public Tag findTagByProejctIdAndTagName(long projectId, String tagName) {
+    public Tag findTagByProjectIdAndTagName(long projectId, String tagName) {
         return queryFactory.selectFrom(QTag.tag)
                 .where(QTag.tag.project.id.eq(projectId)
                         .and(QTag.tag.tagName.eq(tagName)))
                 .fetchOne();
     }
+
+
 }

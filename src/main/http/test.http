@@ -93,3 +93,39 @@ Accept: application/json
   "content": "content",
   "userName": "testUser1"
 }
+
+### 테스트 수정 성공
+PUT http://localhost:8080/task/1/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskName": "Modify Task 1 for Proejct 1",
+  "taskTags": "Development, Design",
+  "milestone": "Milestone3",
+  "content": "Modify content"
+}
+
+### 테스트 수정 실패 - taskName 값이 없음 (1~50)
+PUT http://localhost:8080/task/1/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskName": "",
+  "taskTags": "Development, Testing",
+  "milestone": "Milestone3",
+  "content": "Modify content"
+}
+
+### 테스트 수정 실패 - taskName 값이 없음 (1~50)
+PUT http://localhost:8080/task/1/5
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskName": "",
+  "taskTags": "Development, Testing",
+  "milestone": "Milestone2",
+  "content": "Modify content"
+}

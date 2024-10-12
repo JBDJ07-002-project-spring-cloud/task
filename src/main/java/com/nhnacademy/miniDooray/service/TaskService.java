@@ -1,6 +1,7 @@
 package com.nhnacademy.miniDooray.service;
 
 import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
 
@@ -13,4 +14,6 @@ public interface TaskService {
     TaskDetailResponseDto getTaskByProjectIdAndTaskId(long projectidLong, long taskIdLong);
 
     void resgisterTask(long projectId, TaskRegisterRequestDto requestDto);
+
+    void modifyTask(long projectIdLong, long taskIdLong, TaskModifyRequestDto requestDto);
 }

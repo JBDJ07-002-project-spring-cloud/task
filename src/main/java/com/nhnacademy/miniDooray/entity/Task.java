@@ -32,6 +32,7 @@ public class Task {
     @Column(name = "task_id")
     private Long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_tasks_1"))
     private Project project;
@@ -40,6 +41,7 @@ public class Task {
     @JoinColumn(name = "milestone_id", foreignKey = @ForeignKey(name = "FK_milestones_TO_tasks_1"))
     private Milestone milestone;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_tasks_1"))
     private User user;
@@ -48,7 +50,6 @@ public class Task {
     @Size(min = 1, max = 50, message = "Task name must be between 1 and 50 characters")
     private String taskName;
 
-    @NotNull
     @Size(max = 255)
     private String taskContent;
 

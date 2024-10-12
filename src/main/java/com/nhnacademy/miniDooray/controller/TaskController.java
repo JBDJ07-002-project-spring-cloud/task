@@ -2,6 +2,7 @@ package com.nhnacademy.miniDooray.controller;
 
 import com.nhnacademy.miniDooray.dtos.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.service.TaskService;
@@ -47,6 +48,21 @@ public class TaskController {
         taskService.resgisterTask(projectIdLong, requestDto);
 
         return new MessageResponseDto(200, "OK");
+    }
+
+
+    @PutMapping("/{projectId}/{taskId}")
+    public MessageResponseDto getTaskByProjectIdAndTaskId(
+            @RequestBody TaskModifyRequestDto requestDto,
+            @PathVariable String projectId,
+            @PathVariable String taskId){
+
+        long projectIdLong = parseId(projectId);
+        long taskIdLong = parseId(taskId);
+        taskService.modifyTask(projectIdLong, taskIdLong, requestDto);
+
+        return new MessageResponseDto(200, "OK");
+
     }
 
     private long parseId(String id) {
