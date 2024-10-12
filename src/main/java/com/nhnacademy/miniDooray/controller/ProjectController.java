@@ -37,12 +37,6 @@ public class ProjectController {
         return null;
     }
 
-    //4. 프로젝트 멤버 초대
-    @PostMapping("/{projectId}/invite")
-    public ResponseEntity<StatusResponse> inviteMember(@PathVariable String projectId,
-                                                       @RequestBody InviteMemberRequest inviteMemberRequest) {
-        return null;
-    }
 
     //5. 자신이 속한 프로젝트 리스트 조회(임시 경로)
     @GetMapping("/{userId}")

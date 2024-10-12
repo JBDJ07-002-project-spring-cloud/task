@@ -6,3 +6,11 @@ Content-Type: application/json
   "projectName": "project title1",
   "userId": 1
 }
+
+### 프로젝트에 멤버 초대
+POST http://localhost:8080/project/4/invite
+Content-Type: application/json
+
+{
+  "userIds": [2]
+}
