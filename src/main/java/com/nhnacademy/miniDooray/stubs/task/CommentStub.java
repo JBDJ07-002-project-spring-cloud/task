@@ -1,4 +1,4 @@
-package com.nhnacademy.miniDooray.stubs.dtos;
+package com.nhnacademy.miniDooray.stubs.task;
 
 public record CommentStub(
         long taskId,

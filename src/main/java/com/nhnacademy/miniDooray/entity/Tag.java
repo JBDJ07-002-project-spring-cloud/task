@@ -11,8 +11,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tags")
 public class Tag {
+
+    public Tag(Project project, String tagName) {
+        this.project = project;
+        this.tagName = tagName;
+    }
+
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id")
     private Long id;

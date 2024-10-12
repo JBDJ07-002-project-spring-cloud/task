@@ -1,6 +1,5 @@
-package com.nhnacademy.miniDooray.stubs.dtos;
+package com.nhnacademy.miniDooray.stubs.task;
 
-import com.nhnacademy.miniDooray.entity.Comment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

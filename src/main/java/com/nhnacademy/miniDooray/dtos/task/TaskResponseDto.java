@@ -8,9 +8,9 @@ import java.util.List;
 public record TaskResponseDto (
 
     String projectName,
-    String content,
+    String taskName,
     String taskTags,
-    String taskMilstone,
+    String milestone,
     String userName
 
 ){}

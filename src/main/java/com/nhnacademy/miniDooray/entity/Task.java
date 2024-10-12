@@ -18,8 +18,16 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 public class Task {
 
+    public Task(Project project, Milestone milestone, User user, String taskName, String taskContent, LocalDateTime createdAt) {
+        this.project = project;
+        this.milestone = milestone;
+        this.user = user;
+        this.taskName = taskName;
+        this.taskContent = taskContent;
+        this.createdAt = createdAt;
+    }
+
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Long id;
@@ -37,7 +45,7 @@ public class Task {
     private User user;
 
     @NotNull
-    @Size(max = 50)
+    @Size(min = 1, max = 50, message = "Task name must be between 1 and 50 characters")
     private String taskName;
 
     @NotNull

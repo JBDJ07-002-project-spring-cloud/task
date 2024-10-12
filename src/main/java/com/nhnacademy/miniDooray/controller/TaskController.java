@@ -1,6 +1,8 @@
 package com.nhnacademy.miniDooray.controller;
 
+import com.nhnacademy.miniDooray.dtos.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
 import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,15 @@ public class TaskController {
 
     }
 
+    @PostMapping("/{projectId}")
+    public MessageResponseDto registerTask(@PathVariable String projectId,
+                                           @RequestBody TaskRegisterRequestDto requestDto){
+        long projectIdLong = parseId(projectId);
+        taskService.resgisterTask(projectIdLong, requestDto);
+
+        return new MessageResponseDto(200, "OK");
+    }
+
     private long parseId(String id) {
         try {
             return Long.parseLong(id);
@@ -45,4 +56,5 @@ public class TaskController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid format");
         }
     }
+
 }

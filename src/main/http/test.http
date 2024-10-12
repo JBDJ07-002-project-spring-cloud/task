@@ -15,3 +15,81 @@ GET http://localhost:8080/task/1/100
 
 ### 테스크 상세 조회 실패 = 데이터 형식이 다름
 GET http://localhost:8080/task/1/failed
+
+### 테스트 등록 성공
+POST http://localhost:8080/task/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTags": "Development, Testing",
+  "taskName": "1",
+  "milestone": "Milestone1",
+  "content": "content",
+  "userName": "testUser1"
+}
+
+### 테스트 등록 성공
+POST http://localhost:8080/task/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTags": "Development, Testing",
+  "taskName": "1",
+  "milestone": "Milestone1",
+  "content": "content",
+  "userName": "testUser1"
+}
+
+### 테스트 등록 성공 - 마일스톤값 없음 (milestone_id null로 삽입)
+POST http://localhost:8080/task/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTags": "Development, Testing",
+  "taskName": "1",
+  "milestone": "",
+  "content": "content",
+  "userName": "testUser1"
+}
+
+### 테스트 등록 성공 - 테스크 값 없음 (PROJECT_TAGS 테이블에 어떠한 삽입도 없음)
+POST http://localhost:8080/task/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTags": "",
+  "taskName": "1",
+  "milestone": "Milestone1",
+  "content": "content",
+  "userName": "testUser1"
+}
+
+### 테스트 등록 실패 - 존재하지 않는 프로젝트
+POST http://localhost:8080/task/100
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTags": "",
+  "taskName": "1",
+  "milestone": "Milestone1",
+  "content": "content",
+  "userName": "testUser1"
+}
+
+### 테스트 등록 실패 - taskName 값이 없음 (1~50)
+POST http://localhost:8080/task/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTags": "",
+  "taskName": "",
+  "milestone": "Milestone1",
+  "content": "content",
+  "userName": "testUser1"
+}
