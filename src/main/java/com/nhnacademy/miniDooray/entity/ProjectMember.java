@@ -13,20 +13,21 @@ public class ProjectMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_member_id")
-    private String id;
+    private long id;
 
-    @NotNull
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_project_members_1"))
+    private User member;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_project_members_1"))
     private Project project;
 
     @NotNull
     private Role memberRole;
 
     enum Role {
-        ADMIN, MEMBER
+        ADMIN,
+        MEMBER
     }
 }
