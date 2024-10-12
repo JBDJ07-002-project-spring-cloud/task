@@ -32,16 +32,19 @@ public class ProjectController {
 
     //3. 프로젝트 상태 수정
     @PatchMapping("/{projectId}")
-    public ResponseEntity<StatusResponse> update(@PathVariable String projectId,
+    public ResponseEntity<StatusResponse> update(@PathVariable long projectId,
                                                  @RequestBody ProjectUpdateRequest projectUpdateRequest) {
-        return null;
+        projectService.update(projectId, projectUpdateRequest.getProjectStatus());
+        StatusResponse statusResponse = new StatusResponse(200, "프로젝트 상태 수정 완료");
+        return ResponseEntity.ok(statusResponse);
     }
 
 
     //5. 자신이 속한 프로젝트 리스트 조회(임시 경로)
     @GetMapping("/{userId}")
-    public ResponseEntity<List<Project>> getProjects(@PathVariable String userId) {
-        return null;
+    public ResponseEntity<List<Project>> getProjects(@PathVariable long userId) {
+        List<Project> projects = projectService.getProjects(userId);
+        return ResponseEntity.ok().body(projects);
     }
 
 

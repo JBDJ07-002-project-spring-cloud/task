@@ -3,12 +3,14 @@ package com.nhnacademy.miniDooray.service;
 import com.nhnacademy.miniDooray.entity.Project;
 import com.nhnacademy.miniDooray.entity.ProjectMember;
 import com.nhnacademy.miniDooray.entity.User;
+import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
 import com.nhnacademy.miniDooray.repository.ProjectMemberRepository;
 import com.nhnacademy.miniDooray.repository.ProjectRepository;
 import com.nhnacademy.miniDooray.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +41,23 @@ public class ProjectService {
         projectMemberRepository.save(projectMember);
     }
 
-//    public List<Project> getProjects(long userId) {
-//        projectMemberRepository.findByUser
-//    }
+    public void update(long projectId, Project.ProjectStatus projectStatus) {
+        Optional<Project> projectOptional = projectRepository.findById(projectId);
+        if (projectOptional.isPresent()) {
+            Project project = projectOptional.get();
+            project.setProjectStatus(projectStatus);
+            projectRepository.save(project);
+        } else {
+            throw new ProjectNotFoundException();
+        }
+    }
+
+    public List<Project> getProjects(long userId) {
+        List<ProjectMember> projectMembers = projectMemberRepository.findByMemberId(userId);
+        List<Project> projects = new ArrayList<>();
+        for (ProjectMember projectMember : projectMembers) {
+            projects.add(projectMember.getProject());
+        }
+        return projects;
+    }
 }
