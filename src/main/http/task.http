@@ -118,7 +118,7 @@ Accept: application/json
   "content": "Modify content"
 }
 
-### 테스트 수정 실패 - taskName 값이 없음 (1~50)
+### 테스트 수정 실패 - task가 없음
 PUT http://localhost:8080/task/1/5
 Content-Type: application/json
 Accept: application/json

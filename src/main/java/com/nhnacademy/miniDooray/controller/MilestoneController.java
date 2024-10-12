@@ -27,6 +27,20 @@ public class MilestoneController {
         return new MessageResponseDto(200, "OK");
     }
 
+    @PutMapping("/{projectId}/milestone/{milestoneId}")
+    public MessageResponseDto getTaskByProjectIdAndTaskId(
+            @RequestBody MilestoneRequestDto requestDto,
+            @PathVariable String projectId,
+            @PathVariable String milestoneId){
+
+        long projectIdLong = parseId(projectId);
+        long milestoneIdLong = parseId(milestoneId);
+        milestoneService.modifyMilestone(projectIdLong, milestoneIdLong, requestDto);
+
+        return new MessageResponseDto(200, "OK");
+
+    }
+
     private long parseId(String id) {
         try {
             return Long.parseLong(id);

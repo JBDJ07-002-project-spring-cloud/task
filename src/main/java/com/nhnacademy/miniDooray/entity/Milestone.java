@@ -30,7 +30,7 @@ public class Milestone {
     private Project project;
 
     @NotNull
-    @Size(max = 50)
+    @Size(min = 1, max = 50)
     private String milestoneName;
 
 }

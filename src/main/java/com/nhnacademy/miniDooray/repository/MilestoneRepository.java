@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
     boolean existsByProjectAndMilestoneName(Project project, String milestoneName);
+    Milestone findByProjectIdAndMilestoneName(Long projectId, String milestoneName);
+    Milestone findByProjectIdAndId(long projectId, long milestoneId);
 }
