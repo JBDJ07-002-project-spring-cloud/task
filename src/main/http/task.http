@@ -133,5 +133,5 @@ Accept: application/json
 ### 테스크 삭제 성공
 DELETE http://localhost:8080/task/1/1
 
-### 테스크 삭제 성공
+### 테스크 삭제 실패
 DELETE http://localhost:8080/task/1/3

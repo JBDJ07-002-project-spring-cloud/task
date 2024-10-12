@@ -3,8 +3,11 @@ package com.nhnacademy.miniDooray.service.impl;
 import com.nhnacademy.miniDooray.dtos.milestrone.MilestoneRequestDto;
 import com.nhnacademy.miniDooray.entity.Milestone;
 import com.nhnacademy.miniDooray.entity.Project;
+import com.nhnacademy.miniDooray.entity.Task;
 import com.nhnacademy.miniDooray.repository.MilestoneQueryDslRepository;
 import com.nhnacademy.miniDooray.repository.MilestoneRepository;
+import com.nhnacademy.miniDooray.repository.TaskQueryDslRepository;
+import com.nhnacademy.miniDooray.repository.TaskRepository;
 import com.nhnacademy.miniDooray.service.MilestoneService;
 import com.nhnacademy.miniDooray.stubs.task.QueryDslRepositoryStub;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -21,6 +25,8 @@ public class MilestoneServiceImpl implements MilestoneService {
 
     private final MilestoneRepository milestoneRepository;
     private final MilestoneQueryDslRepository milestoneQueryDslRepository;
+    private final TaskRepository taskRepository;
+    private final TaskQueryDslRepository taskQueryDslRepository;
 
     private final QueryDslRepositoryStub queryDslRepositoryStub;
 
@@ -65,6 +71,30 @@ public class MilestoneServiceImpl implements MilestoneService {
         }
 
         milestoneQueryDslRepository.updateMilestone(projectId, newMilestone);
+
+    }
+
+    @Override
+    @Transactional
+    public void deleteMilestone(long projectId, long milestoneId) {
+
+        Project project = queryDslRepositoryStub.findProjectById(projectId);
+        Milestone milestone = milestoneRepository.findByProjectIdAndId(projectId, milestoneId);
+
+        if (project == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
+        } else if(milestone == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid milestone");
+        }  else if(milestone.getMilestoneName().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "milestone name must be between 1 and 50 characters");
+        }
+
+        List<Task> taskList = taskRepository.findByProjectIdAndMilestoneId(projectId,milestoneId);
+        for(Task task : taskList){
+            taskQueryDslRepository.updateTask(task,projectId);
+        }
+
+        milestoneRepository.deleteByIdAndProjectId(projectId,milestoneId);
 
     }
 }

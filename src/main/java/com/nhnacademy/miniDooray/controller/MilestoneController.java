@@ -41,7 +41,20 @@ public class MilestoneController {
 
     }
 
-    private long parseId(String id) {
+    @DeleteMapping("/{projectId}/milestone/{milestoneId}")
+    public MessageResponseDto deleteTask(
+            @PathVariable String projectId,
+            @PathVariable String milestoneId) {
+
+        long projectIdLong = parseId(projectId);
+        long milestoneIdLong = parseId(milestoneId);
+
+        milestoneService.deleteMilestone(projectIdLong, milestoneIdLong);
+
+        return new MessageResponseDto(200, "OK");
+    }
+
+        private long parseId(String id) {
         try {
             return Long.parseLong(id);
         } catch (NumberFormatException e) {

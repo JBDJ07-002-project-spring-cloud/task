@@ -3,6 +3,7 @@ package com.nhnacademy.miniDooray.repository;
 import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
 import com.nhnacademy.miniDooray.entity.Milestone;
 import com.nhnacademy.miniDooray.entity.QTask;
+import com.nhnacademy.miniDooray.entity.Task;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,17 @@ public class TaskQueryDslRepository {
                 .where(QTask.task.id.eq(taskId)
                         .and(QTask.task.project.id.eq(projectId)))
                 .execute();
+
     }
 
+    public void updateTask(Task task, long projectId) {
+
+        queryFactory
+                .update(QTask.task)
+                .set(QTask.task.milestone,(Milestone) null)
+                .where(QTask.task.id.eq(task.getId())
+                        .and(QTask.task.project.id.eq(projectId)))
+                .execute();
+
+    }
 }
