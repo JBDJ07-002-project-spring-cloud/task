@@ -31,7 +31,7 @@ public class User {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
-        setUserStatus(UserStatus.REGISTER);
+        setStatus(UserStatus.REGISTER);
     }
 
     @Id
@@ -55,7 +55,7 @@ public class User {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status")
-    private UserStatus userStatus = UserStatus.REGISTER;
+    private UserStatus status = UserStatus.REGISTER;
 
 
     // 유저 상태 enum 값

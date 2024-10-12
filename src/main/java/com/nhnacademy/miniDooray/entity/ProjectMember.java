@@ -7,26 +7,30 @@ import lombok.*;
 @Entity
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "project_members")
 public class ProjectMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_member_id")
-    private String id;
+    private long id; //수정
 
     @NotNull
     @ManyToOne
+    @Setter
     private User user;
 
     @NotNull
     @ManyToOne
+    @Setter
     private Project project;
 
     @NotNull
+    @Enumerated(EnumType.STRING) // 문자열로 저장 <- 열거형 0으로 저장하길래
+    @Setter
     private Role memberRole;
 
-    enum Role {
+    public enum Role {
         ADMIN, MEMBER
     }
 }
