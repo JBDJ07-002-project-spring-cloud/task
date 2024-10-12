@@ -105,11 +105,28 @@ public class TaskServiceImpl implements TaskService {
         }
 
         taskQueryDslRepository.updateTask(projectId, taskId, milestone, requestDto);
-        updateTags(projectId, taskId, requestDto.taskTags(),task);
+        modifyTags(projectId, taskId, requestDto.taskTags(),task);
 
     }
 
-    private void updateTags(long projectId, long taskId, String taskTags, Task task){
+    @Override
+    @Transactional
+    public void deleteTask(long projectId, long taskId) {
+
+        Project project = queryDslRepositoryStub.findProjectById(projectId);
+        Task task = taskRepository.findByProjectIdAndId(projectId, taskId);
+        if (project == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
+        } else if(task == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid task ID");
+        }
+
+        queryDslRepositoryStub.deleteCommentsByTaskId(taskId);
+        projectTagRepository.deleteAllByTaskId(taskId);
+        taskRepository.deleteByIdAndProjectId(projectId,taskId);
+    }
+
+    private void modifyTags(long projectId, long taskId, String taskTags, Task task){
         List<ProjectTag> existTagList = projectTagRepository.findTagByTaskId(taskId);
         List<String> newTagList = Arrays.asList(taskTags.split(TAG_DELIMITER));
 

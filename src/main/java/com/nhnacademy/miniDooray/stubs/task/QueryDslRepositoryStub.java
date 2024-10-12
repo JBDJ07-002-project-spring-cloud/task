@@ -38,5 +38,11 @@ public class QueryDslRepositoryStub {
                 .fetchOne();
     }
 
+    public void deleteCommentsByTaskId(Long taskId) {
+        queryFactory.delete(QComment.comment)
+                .where(QComment.comment.task.id.eq(taskId))
+                .execute();
+    }
+
 
 }

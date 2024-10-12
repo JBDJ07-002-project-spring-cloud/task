@@ -65,6 +65,20 @@ public class TaskController {
 
     }
 
+    @DeleteMapping("/{projectId}/{taskId}")
+    public MessageResponseDto deleteTask(
+            @PathVariable String projectId,
+            @PathVariable String taskId){
+
+        long projectIdLong = parseId(projectId);
+        long taskIdLong = parseId(taskId);
+
+        taskService.deleteTask(projectIdLong, taskIdLong);
+
+        return new MessageResponseDto(200, "OK");
+
+    }
+
     private long parseId(String id) {
         try {
             return Long.parseLong(id);
