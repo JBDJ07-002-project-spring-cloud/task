@@ -1,0 +1,8 @@
+### 프로젝트 등록
+POST http://localhost:8080/project
+Content-Type: application/json
+
+{
+  "projectName": "project title1",
+  "userId": 1
+}
