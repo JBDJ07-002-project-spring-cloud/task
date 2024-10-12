@@ -1,8 +1,7 @@
 package com.nhnacademy.miniDooray.controller;
 
-import com.nhnacademy.miniDooray.dto.InviteMemberRequest;
-import com.nhnacademy.miniDooray.dto.ProjectCreateRequest;
-import com.nhnacademy.miniDooray.dto.ProjectUpdateRequest;
+import com.nhnacademy.miniDooray.dto.project.ProjectCreateRequest;
+import com.nhnacademy.miniDooray.dto.project.ProjectUpdateRequest;
 import com.nhnacademy.miniDooray.dto.StatusResponse;
 import com.nhnacademy.miniDooray.entity.Project;
 import com.nhnacademy.miniDooray.service.ProjectService;
