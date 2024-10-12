@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<MessageResponseDto> responseStatusException(ResponseStatusException e){
         MessageResponseDto messageResponseDto = new MessageResponseDto(
-            e.getStatusCode().value(),e.getMessage()
+            e.getStatusCode().value(),e.getReason()
         );
 
         return ResponseEntity.status(e.getStatusCode()).body(messageResponseDto);

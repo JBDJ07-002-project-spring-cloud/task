@@ -20,13 +20,7 @@ public class TaskController {
     @GetMapping("/{projectId}")
     public List<TaskResponseDto> getAllTasksByProjectId(@PathVariable String projectId) {
 
-        long id;
-
-        try {
-            id = Long.parseLong(projectId);
-        } catch (NumberFormatException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
-        }
+        long id = parseId(projectId);
 
         return taskService.getAllTasksByProjectId(id);
 
@@ -37,17 +31,18 @@ public class TaskController {
             @PathVariable String projectId,
             @PathVariable String taskId){
 
-        long projectidLong;
-        long taskIdLong;
+        long projectIdLong = parseId(projectId);
+        long taskIdLong = parseId(taskId);
 
+        return taskService.getTaskByProjectIdAndTaskId(projectIdLong, taskIdLong);
+
+    }
+
+    private long parseId(String id) {
         try {
-            projectidLong = Long.parseLong(projectId);
-            taskIdLong = Long.parseLong(taskId);
-        } catch (NumberFormatException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID or task ID");
+            return Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid format");
         }
-
-        return taskService.getTaskByProjectIdAndTaskId(projectidLong, taskIdLong);
-
     }
 }
