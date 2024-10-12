@@ -15,6 +15,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "milestones")
 public class Milestone {
 
+    public Milestone(Project project, String milestoneName) {
+        this.project = project;
+        this.milestoneName = milestoneName;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "milestone_id")
