@@ -33,7 +33,7 @@ public class ProjectService {
 
         Optional<User> user = userRepository.findById(userId);
         ProjectMember projectMember = new ProjectMember();
-        projectMember.setUser(user.get());
+        projectMember.setMember(user.get());
         projectMember.setProject(project);
         projectMember.setMemberRole(ProjectMember.Role.ADMIN);
         projectMemberRepository.save(projectMember);

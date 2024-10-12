@@ -17,8 +17,8 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_tags_1"))
     private Project project;
 
     @NotNull

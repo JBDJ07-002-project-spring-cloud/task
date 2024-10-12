@@ -13,20 +13,20 @@ public class ProjectMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_member_id")
-    private long id; //수정
+    private long id;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_project_members_1"))
     @Setter
-    private User user;
+    private User member;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_project_members_1"))
     @Setter
     private Project project;
 
     @NotNull
-    @Enumerated(EnumType.STRING) // 문자열로 저장 <- 열거형 0으로 저장하길래
+    @Enumerated(EnumType.STRING)
     @Setter
     private Role memberRole;
 

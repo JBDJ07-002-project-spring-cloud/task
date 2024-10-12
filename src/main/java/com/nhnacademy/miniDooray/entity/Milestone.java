@@ -20,8 +20,8 @@ public class Milestone {
     @Column(name = "milestone_id")
     private long id;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_milestones_1"))
     private Project project;
 
     @NotNull

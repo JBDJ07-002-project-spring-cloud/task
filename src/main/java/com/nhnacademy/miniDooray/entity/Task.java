@@ -25,18 +25,24 @@ public class Task {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_tasks_1"))
     private Project project;
 
     @ManyToOne
+    @JoinColumn(name = "milestone_id", foreignKey = @ForeignKey(name = "FK_milestones_TO_tasks_1"))
     private Milestone milestone;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_tasks_1"))
     private User user;
 
     @NotNull
     @Size(max = 50)
     private String taskName;
 
-    @Comment("업무 생성 날짜")
+    @NotNull
+    @Size(max = 255)
+    private String content;
+
     private LocalDateTime createdAt;
 }

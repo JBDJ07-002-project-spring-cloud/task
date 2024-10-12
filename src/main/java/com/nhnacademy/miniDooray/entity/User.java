@@ -53,7 +53,7 @@ public class User {
     private String userEmail;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //이걸해야 string으로 들어가짐.
     @Column(name = "user_status")
     private UserStatus status = UserStatus.REGISTER;
 
