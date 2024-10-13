@@ -56,14 +56,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TagNotFoundInProjectException.class)
-    public ResponseEntity<StatusResponse> handleTagNotFoundInProject(TagNotFoundInProjectException ex) {
-        StatusResponse statusResponse = new StatusResponse(404, "해당 프로젝트에 해당 태그가 존재하지 않습니다.");
+    public ResponseEntity<MessageResponseDto> handleTagNotFoundInProject(TagNotFoundInProjectException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(404, "해당 프로젝트에 해당 태그가 존재하지 않습니다.");
         return ResponseEntity.status(404).body(statusResponse);
     }
 
     @ExceptionHandler(UserNotInProjectException.class)
-    public ResponseEntity<StatusResponse> handleUserNotInProject(UserNotInProjectException ex) {
-        StatusResponse statusResponse = new StatusResponse(404, "유저가 해당 프로젝트의 멤버가 아닙니다.");
+    public ResponseEntity<MessageResponseDto> handleUserNotInProject(UserNotInProjectException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(404, "유저가 해당 프로젝트의 멤버가 아닙니다.");
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(statusResponse);
     }
 
