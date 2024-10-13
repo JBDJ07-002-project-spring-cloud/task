@@ -8,6 +8,4 @@ public interface CommentService {
     Comment createComment(Task task, CommentCreateRequestDto commentCreateRequestDto);
     Comment updateComment(Long commentId, String newContent);
     void deleteComment(Long commentId);
-
-    void asdf();
 }
