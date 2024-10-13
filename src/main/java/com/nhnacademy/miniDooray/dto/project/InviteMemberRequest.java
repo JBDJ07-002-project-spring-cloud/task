@@ -1,4 +1,4 @@
-package com.nhnacademy.miniDooray.dto;
+package com.nhnacademy.miniDooray.dto.project;
 
 import lombok.Data;
 

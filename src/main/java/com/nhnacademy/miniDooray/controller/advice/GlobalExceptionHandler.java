@@ -1,10 +1,11 @@
 package com.nhnacademy.miniDooray.controller.advice;
 
-import com.nhnacademy.miniDooray.dto.StatusResponse;
-import com.nhnacademy.miniDooray.dto.message.MessageResponseArrayDto;
 import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseArrayDto;
 import com.nhnacademy.miniDooray.exception.MemberAlreadyExistsInProjectException;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
+import com.nhnacademy.miniDooray.exception.TagNotFoundInProjectException;
+import com.nhnacademy.miniDooray.exception.UserNotInProjectException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<MessageResponseDto> responseStatusException(ResponseStatusException e){
-        MessageResponseDto messageResponseDto = new MessageResponseDto(
+    public ResponseEntity<com.nhnacademy.miniDooray.dto.message.MessageResponseDto> responseStatusException(ResponseStatusException e){
+        com.nhnacademy.miniDooray.dto.message.MessageResponseDto messageResponseDto = new com.nhnacademy.miniDooray.dto.message.MessageResponseDto(
             e.getStatusCode().value(),e.getReason()
         );
 
@@ -28,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<MessageResponseArrayDto> constraintViolationException(ConstraintViolationException e) {
+    public ResponseEntity<MessageResponseDto> constraintViolationException(ConstraintViolationException e) {
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -37,22 +39,34 @@ public class GlobalExceptionHandler {
             errorMessages.add(errorMessage);
         });
 
-        MessageResponseArrayDto responseDto = new MessageResponseArrayDto(400, errorMessages);
+        MessageResponseDto responseDto = new MessageResponseDto(400,
+                String.join(",", errorMessages));
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
 
     @ExceptionHandler(MemberAlreadyExistsInProjectException.class)
-    public ResponseEntity<StatusResponse> handleMemberAlreadyExistsInProjectException(MemberAlreadyExistsInProjectException ex) {
-        StatusResponse statusResponse = new StatusResponse(400, "이미 멤버로 존재합니다.");
+    public ResponseEntity<MessageResponseDto> handleMemberAlreadyExistsInProjectException(MemberAlreadyExistsInProjectException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(400, "이미 멤버로 존재합니다.");
         return ResponseEntity.status(400).body(statusResponse);
     }
 
     @ExceptionHandler(ProjectNotFoundException.class)
-    public ResponseEntity<StatusResponse> handleProjectNotFound(ProjectNotFoundException ex) {
-        StatusResponse statusResponse = new StatusResponse(404, "프로젝트가 존재하지 않습니다.");
+    public ResponseEntity<MessageResponseDto> handleProjectNotFound(ProjectNotFoundException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(404, "프로젝트가 존재하지 않습니다.");
         return ResponseEntity.status(404).body(statusResponse);
     }
 
+    @ExceptionHandler(TagNotFoundInProjectException.class)
+    public ResponseEntity<MessageResponseDto> handleTagNotFoundInProject(TagNotFoundInProjectException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(404, "해당 프로젝트에 해당 태그가 존재하지 않습니다.");
+        return ResponseEntity.status(404).body(statusResponse);
+    }
+
+    @ExceptionHandler(UserNotInProjectException.class)
+    public ResponseEntity<MessageResponseDto> handleUserNotInProject(UserNotInProjectException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(404, "유저가 해당 프로젝트의 멤버가 아닙니다.");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(statusResponse);
+    }
 
 }

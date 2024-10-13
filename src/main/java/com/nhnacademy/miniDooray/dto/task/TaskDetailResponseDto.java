@@ -1,6 +1,6 @@
 package com.nhnacademy.miniDooray.dto.task;
 
-import com.nhnacademy.miniDooray.stubs.task.CommentResponseDtoStub;
+import com.nhnacademy.miniDooray.dto.comment.CommentResponseDto;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public record TaskDetailResponseDto(
         String taskTags,
         String taskMilstone,
         String userName,
-        List<CommentResponseDtoStub> comments
+        List<CommentResponseDto> comments
 
 ) {
 }

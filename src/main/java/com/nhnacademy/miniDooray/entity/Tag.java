@@ -22,15 +22,15 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
+    @NotNull
     @ManyToOne
     @Setter
-
     @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_tags_1"))
     private Project project;
 
     @NotNull
     @Setter
-    @Size(max = 50)
+    @Size(min = 1, max = 50)
     @Column(name = "tag_name")
     private String tagName;
 }

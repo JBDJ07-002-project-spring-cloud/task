@@ -1,19 +1,15 @@
 package com.nhnacademy.miniDooray.service.impl;
 
 import com.nhnacademy.miniDooray.config.mapper.TaskMapper;
+import com.nhnacademy.miniDooray.dto.comment.CommentResponseDto;
 import com.nhnacademy.miniDooray.dto.task.TaskDetailResponseDto;
 import com.nhnacademy.miniDooray.dto.task.TaskModifyRequestDto;
 import com.nhnacademy.miniDooray.dto.task.TaskRegisterRequestDto;
 import com.nhnacademy.miniDooray.dto.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.entity.*;
-import com.nhnacademy.miniDooray.repository.ProjectTagRepository;
-import com.nhnacademy.miniDooray.repository.TaskQueryDslRepository;
-import com.nhnacademy.miniDooray.stubs.task.QueryDslRepositoryStub;
-import com.nhnacademy.miniDooray.repository.TaskRepository;
+import com.nhnacademy.miniDooray.repository.*;
 import com.nhnacademy.miniDooray.service.TaskService;
-import com.nhnacademy.miniDooray.stubs.task.CommentRepositoryStub;
-import com.nhnacademy.miniDooray.stubs.task.CommentResponseDtoStub;
-import com.nhnacademy.miniDooray.stubs.task.CommentStub;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -32,9 +29,13 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final ProjectTagRepository projectTagRepository;
     private final TaskQueryDslRepository taskQueryDslRepository;
-
-    private final CommentRepositoryStub commentRepositoryStub;
-    private final QueryDslRepositoryStub queryDslRepositoryStub;
+    private final MilestoneRepository milestoneRepository;
+    private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
+    private final CommentQueryDslRepositoty commentQueryDslRepositoty;
+    private final TagRepository tagRepository;
+    private final TagQueryDslRepository tagQueryDslRepository;
 
     private static final String TAG_DELIMITER = ", ";
 
@@ -64,16 +65,14 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public void resgisterTask(long projectId, TaskRegisterRequestDto requestDto) {
 
-        Project project = queryDslRepositoryStub.findProjectById(projectId);
+        Project project = projectRepository.findProjectById(projectId);
         if (project == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
         }
 
-        // TODO: user가 해당 멤버가 아니라면? (이건 근데 필터에서 처리해줄 것 같음)
-        User user = queryDslRepositoryStub.findUserByName(requestDto.userName());
+        User user = userRepository.findUserByUserName(requestDto.userName());
+        Milestone milestone = milestoneRepository.findByProjectIdAndMilestoneName(projectId, requestDto.milestone());
 
-        //TODO : 나중에 JPA로 바꿔둘것
-        Milestone milestone = queryDslRepositoryStub.findMilestoneByName(projectId, requestDto.milestone());
         Task task = new Task(
                 project,
                 milestone,
@@ -89,10 +88,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public void modifyTask(long projectId, long taskId, TaskModifyRequestDto requestDto) {
-        Project project = queryDslRepositoryStub.findProjectById(projectId);
+        Project project = projectRepository.findProjectById(projectId);
         Task task = taskRepository.findByProjectIdAndId(projectId, taskId);
-        //TODO : 나중에 JPA로 바꿔둘것
-        Milestone milestone = queryDslRepositoryStub.findMilestoneByName(projectId, requestDto.milestone());
+        Milestone milestone = milestoneRepository.findByProjectIdAndMilestoneName(projectId, requestDto.milestone());
 
         if (project == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
@@ -113,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public void deleteTask(long projectId, long taskId) {
 
-        Project project = queryDslRepositoryStub.findProjectById(projectId);
+        Project project = projectRepository.findProjectById(projectId);
         Task task = taskRepository.findByProjectIdAndId(projectId, taskId);
         if (project == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
@@ -121,7 +119,7 @@ public class TaskServiceImpl implements TaskService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid task ID");
         }
 
-        queryDslRepositoryStub.deleteCommentsByTaskId(taskId);
+        commentQueryDslRepositoty.deleteCommentsByTaskId(taskId);
         projectTagRepository.deleteAllByTaskId(taskId);
         taskRepository.deleteByIdAndProjectId(projectId,taskId);
     }
@@ -142,7 +140,7 @@ public class TaskServiceImpl implements TaskService {
             if (!tagName.isEmpty() &&
                     existTagList.stream().noneMatch(tag -> tag.getTag().getTagName().equals(tagName))) {
 
-                Tag tag = queryDslRepositoryStub.findTagByProjectIdAndTagName(projectId, tagName);
+                Tag tag = tagRepository.findTagByProjectIdAndTagName(projectId, tagName);
 
                 if(Objects.nonNull(tag)){
                     ProjectTag newProjectTag = new ProjectTag(
@@ -163,7 +161,7 @@ public class TaskServiceImpl implements TaskService {
             for(String tagName : tags){
                 if(!tagName.isEmpty()){
                     ProjectTag projectTag = new ProjectTag(
-                            queryDslRepositoryStub.findTagByProjectIdAndTagName(projectId, tagName),
+                            tagQueryDslRepository.findTagByProjectIdAndTagName(projectId, tagName),
                             task
                     );
                     projectTagRepository.save(projectTag);
@@ -175,10 +173,6 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    private boolean isExistedProject(Long projectId){
-        return true;
-    }
-
     private TaskResponseDto convertToTaskResponseDto(Task task) {
         String tagStrings = getTagNamesByTaskId(task.getId());
         return TaskMapper.toResponseDto(task,tagStrings);
@@ -186,19 +180,19 @@ public class TaskServiceImpl implements TaskService {
 
     private TaskDetailResponseDto convertToTaskDetailResponseDto(Task task) {
         String tagStrings = getTagNamesByTaskId(task.getId());
-        List<CommentStub> commentList = commentRepositoryStub.findByTaskId(task.getId());
-        List<CommentResponseDtoStub> commentResponseDtoStubList = new ArrayList<>();
+        List<Comment> commentList = commentRepository.findByTaskId(task.getId());
+        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
 
         // TODO : Stub
-        for(CommentStub commentStub : commentList){
-            CommentResponseDtoStub commentResponseDtoStub = new CommentResponseDtoStub(
-                    commentStub.content(),
-                    commentStub.userName()
+        for(Comment comment : commentList){
+            CommentResponseDto commentResponseDto = new CommentResponseDto(
+                    comment.getContent(),
+                    comment.getUser().getUserName()
             );
-            commentResponseDtoStubList.add(commentResponseDtoStub);
+            commentResponseDtoList.add(commentResponseDto);
         }
 
-        return TaskMapper.toDetailResponseDto(task,tagStrings,commentResponseDtoStubList);
+        return TaskMapper.toDetailResponseDto(task,tagStrings,commentResponseDtoList);
     }
 
     private String getTagNamesByTaskId(long taskId) {
@@ -206,6 +200,16 @@ public class TaskServiceImpl implements TaskService {
         return tags.stream()
                 .map(tag -> tag.getTag().getTagName())
                 .collect(Collectors.joining(", "));
+    }
+
+    public Task getTaskById(long projectId, long taskId){
+        Task task = taskRepository.findByProjectIdAndId(projectId, taskId);
+
+        if(task == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid task ID");
+        }
+
+        return task;
     }
 
 }
