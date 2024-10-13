@@ -33,9 +33,7 @@ public class CommentController {
         // 1. 커맨트 생성 요청
         // 2. 어디 task에 속하는지 확인
         // 3.
-        Task task = taskService.findById(taskId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Task ID"));
-
+        Task task = taskService.getTaskById(ProjectId, taskId);
 
         Comment newComment = commentService.createComment(task, commentRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
