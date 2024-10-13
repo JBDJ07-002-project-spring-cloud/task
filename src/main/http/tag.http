@@ -1,4 +1,4 @@
-### 1. 프로젝트 태그 등록 (플젝 아이디, 태그이름 보내기)
+### 1-1. 프로젝트 태그 등록 (플젝 아이디, 태그이름 보내기)
 POST http://localhost:8080/project/1/tag
 Content-Type: application/json
 X-USER-ID: 1
@@ -6,6 +6,16 @@ X-USER-ID: 1
 {
   "tagName": "yourTagName"
 }
+
+### 1-2. 프로젝트 태그 등록 (해당 유저가 플젝 멤버 아닌경우..실패)
+POST http://localhost:8080/project/3/tag
+Content-Type: application/json
+X-USER-ID: 1
+
+{
+  "tagName": "yourTagName"
+}
+
 
 ### 2. 프로젝트 태그 수정 -> 해당 멤버만 가능..추후 기능 확장
 PUT http://localhost:8080/project/1/tag/1
