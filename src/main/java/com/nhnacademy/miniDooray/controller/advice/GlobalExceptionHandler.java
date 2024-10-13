@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<MessageResponseArrayDto> constraintViolationException(ConstraintViolationException e) {
+    public ResponseEntity<MessageResponseDto> constraintViolationException(ConstraintViolationException e) {
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -38,7 +39,8 @@ public class GlobalExceptionHandler {
             errorMessages.add(errorMessage);
         });
 
-        MessageResponseArrayDto responseDto = new MessageResponseArrayDto(400, errorMessages);
+        MessageResponseDto responseDto = new MessageResponseDto(400,
+                String.join(",", errorMessages));
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
