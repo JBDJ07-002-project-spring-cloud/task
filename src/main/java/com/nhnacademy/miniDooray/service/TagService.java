@@ -5,6 +5,7 @@ import com.nhnacademy.miniDooray.entity.Tag;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
 import com.nhnacademy.miniDooray.exception.TagNotFoundException;
 import com.nhnacademy.miniDooray.repository.ProjectRepository;
+import com.nhnacademy.miniDooray.repository.ProjectTagRepository;
 import com.nhnacademy.miniDooray.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class TagService {
     private final TagRepository tagRepository;
     private final ProjectRepository projectRepository;
+    private final ProjectTagRepository projectTagRepository;
 
 
     public void create(long projectId, String tagName) {
@@ -45,6 +47,8 @@ public class TagService {
         if (!tagRepository.existsById(tagId)) {
             throw new TagNotFoundException();
         }
+        projectTagRepository.deleteAllByTagId(tagId);
+
         tagRepository.deleteById(tagId);
     }
 }
