@@ -1,9 +1,9 @@
 package com.nhnacademy.miniDooray.config.mapper;
 
+import com.nhnacademy.miniDooray.dto.comment.CommentResponseDto;
 import com.nhnacademy.miniDooray.dto.task.TaskDetailResponseDto;
 import com.nhnacademy.miniDooray.dto.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.entity.Task;
-import com.nhnacademy.miniDooray.stubs.task.CommentResponseDtoStub;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class TaskMapper {
         );
     }
 
-    public static TaskDetailResponseDto toDetailResponseDto(Task task, String tagStrings, List<CommentResponseDtoStub> commentList) {
+    public static TaskDetailResponseDto toDetailResponseDto(Task task, String tagStrings, List<CommentResponseDto> commentList) {
         return new TaskDetailResponseDto(
                 task.getProject().getProjectName(),
                 task.getTaskName(),

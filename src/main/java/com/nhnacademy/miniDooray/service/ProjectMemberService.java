@@ -1,6 +1,5 @@
 package com.nhnacademy.miniDooray.service;
 
-import com.nhnacademy.miniDooray.dto.StatusResponse;
 import com.nhnacademy.miniDooray.entity.Project;
 import com.nhnacademy.miniDooray.entity.ProjectMember;
 import com.nhnacademy.miniDooray.entity.User;
@@ -9,7 +8,6 @@ import com.nhnacademy.miniDooray.repository.ProjectMemberRepository;
 import com.nhnacademy.miniDooray.repository.ProjectRepository;
 import com.nhnacademy.miniDooray.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

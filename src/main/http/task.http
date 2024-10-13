@@ -107,7 +107,7 @@ X-USER-ID: 1
 }
 
 ### 테스트 수정 성공
-PUT http://localhost:8080/task/1/1
+PUT http://localhost:8080/task/1/2
 Content-Type: application/json
 Accept: application/json
 X-USER-ID: 1
