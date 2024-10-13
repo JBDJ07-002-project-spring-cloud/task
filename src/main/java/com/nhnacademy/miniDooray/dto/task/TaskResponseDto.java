@@ -1,4 +1,4 @@
-package com.nhnacademy.miniDooray.dtos.task;
+package com.nhnacademy.miniDooray.dto.task;
 
 import com.nhnacademy.miniDooray.entity.Tag;
 import com.nhnacademy.miniDooray.entity.Task;

@@ -1,6 +1,6 @@
 package com.nhnacademy.miniDooray.service.impl;
 
-import com.nhnacademy.miniDooray.dtos.milestrone.MilestoneRequestDto;
+import com.nhnacademy.miniDooray.dto.milestrone.MilestoneRequestDto;
 import com.nhnacademy.miniDooray.entity.Milestone;
 import com.nhnacademy.miniDooray.entity.Project;
 import com.nhnacademy.miniDooray.entity.Task;
@@ -63,14 +63,14 @@ public class MilestoneServiceImpl implements MilestoneService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid project ID");
         } else if(prevMilestone == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid milestone");
-        } else if(Objects.nonNull(newMilestone)){
+        } else if(newMilestone != null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Milestone already exists");
 
         } else if(requestDto.milestoneName().isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "milestone name must be between 1 and 50 characters");
         }
 
-        milestoneQueryDslRepository.updateMilestone(projectId, newMilestone);
+        milestoneQueryDslRepository.updateMilestone(projectId, milestoneId, requestDto);
 
     }
 

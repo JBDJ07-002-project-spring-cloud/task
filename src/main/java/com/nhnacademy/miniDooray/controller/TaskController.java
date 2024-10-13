@@ -1,10 +1,10 @@
 package com.nhnacademy.miniDooray.controller;
 
-import com.nhnacademy.miniDooray.dtos.message.MessageResponseDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskModifyRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskRegisterRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

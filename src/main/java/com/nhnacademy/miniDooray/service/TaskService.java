@@ -1,10 +1,9 @@
 package com.nhnacademy.miniDooray.service;
 
-import com.nhnacademy.miniDooray.dtos.message.MessageResponseDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskModifyRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskRegisterRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskResponseDto;
 
 import java.util.List;
 

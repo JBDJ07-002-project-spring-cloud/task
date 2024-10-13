@@ -1,4 +1,4 @@
-package com.nhnacademy.miniDooray.dtos.task;
+package com.nhnacademy.miniDooray.dto.task;
 
 public record TaskModifyRequestDto(
         String taskTags,

@@ -1,16 +1,5 @@
 package com.nhnacademy.miniDooray.controller;
 
-import com.nhnacademy.miniDooray.dto.CommentCreateRequestDto;
-import com.nhnacademy.miniDooray.dto.CommentResponse;
-import com.nhnacademy.miniDooray.dto.CommentUpdateRequestDto;
-import com.nhnacademy.miniDooray.entity.Comment;
-import com.nhnacademy.miniDooray.entity.Task;
-import com.nhnacademy.miniDooray.entity.User;
-import com.nhnacademy.miniDooray.service.CommentService;
-import com.nhnacademy.miniDooray.service.TaskService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.nhnacademy.miniDooray.dtos.milestrone;
+package com.nhnacademy.miniDooray.dto.milestrone;
 
 public record MilestoneRequestDto(
         String milestoneName

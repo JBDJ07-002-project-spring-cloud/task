@@ -1,8 +1,8 @@
 package com.nhnacademy.miniDooray.controller.advice;
 
 import com.nhnacademy.miniDooray.dto.StatusResponse;
-import com.nhnacademy.miniDooray.dtos.message.MessageResponseArrayDto;
-import com.nhnacademy.miniDooray.dtos.message.MessageResponseDto;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseArrayDto;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.exception.MemberAlreadyExistsInProjectException;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

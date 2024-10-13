@@ -1,6 +1,6 @@
 package com.nhnacademy.miniDooray.repository;
 
-import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskModifyRequestDto;
 import com.nhnacademy.miniDooray.entity.Milestone;
 import com.nhnacademy.miniDooray.entity.QTask;
 import com.nhnacademy.miniDooray.entity.Task;

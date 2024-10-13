@@ -1,4 +1,4 @@
-package com.nhnacademy.miniDooray.dtos.message;
+package com.nhnacademy.miniDooray.dto.message;
 
 import java.util.List;
 

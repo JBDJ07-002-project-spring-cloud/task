@@ -1,7 +1,7 @@
 package com.nhnacademy.miniDooray.config.mapper;
 
-import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.entity.Task;
 import com.nhnacademy.miniDooray.stubs.task.CommentResponseDtoStub;
 

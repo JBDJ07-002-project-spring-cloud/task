@@ -1,9 +1,8 @@
 package com.nhnacademy.miniDooray.repository;
 
-import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
+import com.nhnacademy.miniDooray.dto.milestrone.MilestoneRequestDto;
 import com.nhnacademy.miniDooray.entity.Milestone;
 import com.nhnacademy.miniDooray.entity.QMilestone;
-import com.nhnacademy.miniDooray.entity.QTask;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,12 +15,12 @@ public class MilestoneQueryDslRepository {
     private final JPAQueryFactory queryFactory;
 
     @Transactional
-    public void updateMilestone(long projectId, Milestone milestone) {
+    public void updateMilestone(long projectId, long milestoneId ,MilestoneRequestDto milestone) {
 
         queryFactory
                 .update(QMilestone.milestone)
-                .set(QMilestone.milestone.milestoneName, milestone.getMilestoneName())
-                .where(QMilestone.milestone.id.eq(milestone.getId())
+                .set(QMilestone.milestone.milestoneName, milestone.milestoneName())
+                .where(QMilestone.milestone.id.eq(milestoneId)
                         .and(QMilestone.milestone.project.id.eq(projectId)))
                 .execute();
     }

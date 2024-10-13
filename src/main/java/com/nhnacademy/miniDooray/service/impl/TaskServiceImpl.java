@@ -1,10 +1,10 @@
 package com.nhnacademy.miniDooray.service.impl;
 
 import com.nhnacademy.miniDooray.config.mapper.TaskMapper;
-import com.nhnacademy.miniDooray.dtos.task.TaskDetailResponseDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskDetailResponseDto;
+import com.nhnacademy.miniDooray.dto.task.TaskModifyRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskRegisterRequestDto;
+import com.nhnacademy.miniDooray.dto.task.TaskResponseDto;
 import com.nhnacademy.miniDooray.entity.*;
 import com.nhnacademy.miniDooray.repository.ProjectTagRepository;
 import com.nhnacademy.miniDooray.repository.TaskQueryDslRepository;

@@ -1,9 +1,7 @@
 package com.nhnacademy.miniDooray.controller;
 
-import com.nhnacademy.miniDooray.dtos.message.MessageResponseDto;
-import com.nhnacademy.miniDooray.dtos.milestrone.MilestoneRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskModifyRequestDto;
-import com.nhnacademy.miniDooray.dtos.task.TaskRegisterRequestDto;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
+import com.nhnacademy.miniDooray.dto.milestrone.MilestoneRequestDto;
 import com.nhnacademy.miniDooray.service.MilestoneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
