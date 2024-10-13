@@ -3,7 +3,6 @@
 POST http://localhost:8080/project/2/milestone
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
 
 {
   "milestoneName": "Milestone100"
@@ -13,7 +12,6 @@ X-USER-ID: 1
 POST http://localhost:8080/project/222/milestone
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
 
 {
   "milestoneName": "Milestone100"
@@ -23,7 +21,6 @@ X-USER-ID: 1
 POST http://localhost:8080/project/2/milestone
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
 
 {
   "milestoneName": ""
@@ -33,7 +30,6 @@ X-USER-ID: 1
 PUT http://localhost:8080/project/1/milestone/1
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
 
 {
   "milestoneName": "111"
@@ -43,7 +39,6 @@ X-USER-ID: 1
 PUT http://localhost:8080/project/2/milestone/1
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
 
 {
   "milestoneName": ""
@@ -51,8 +46,6 @@ X-USER-ID: 1
 
 ### 마일스톤 삭제 성공
 DELETE http://localhost:8080/project/2/milestone/2
-X-USER-ID: 1
 
 ### 마일스톤 삭제 실패
 DELETE http://localhost:8080/project/2/milestone/3
-X-USER-ID: 1

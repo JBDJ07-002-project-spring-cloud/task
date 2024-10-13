@@ -2,7 +2,7 @@
 POST http://localhost:8080//task/1/{taskId}/comment
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
+X-USer-Id: 1
 
 {
   "commentName": "Comment100"
@@ -12,7 +12,7 @@ X-USER-ID: 1
 PUT http://localhost:8080//task/11/{taskId}/comment
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
+X-USer-Id: 1
 
 {
   "commentName": "Comment100"
@@ -22,7 +22,7 @@ X-USER-ID: 1
 PUT http://localhost:8080//task/1/{taskId}/{commentId}
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
+X-USer-Id: 1
 
 {
   "commentName": "Comment100"
@@ -32,7 +32,7 @@ X-USER-ID: 1
 PUT http://localhost:8080//task/11/{taskId}/{commentId}
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
+X-USer-Id: 1
 
 {
   "commentName": "Comment100"
@@ -42,7 +42,7 @@ X-USER-ID: 1
 DELETE http://localhost:8080//task/1/{taskId}/{commentId}
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
+X-USer-Id: 1
 
 {
   "commentName": "Comment100"
@@ -52,7 +52,7 @@ X-USER-ID: 1
 DELETE http://localhost:8080//task/11/{taskId}/{commentId}
 Content-Type: application/json
 Accept: application/json
-X-USER-ID: 1
+X-USer-Id: 1
 
 {
   "commentName": "Comment100"
