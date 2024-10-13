@@ -27,15 +27,15 @@ public class TagController {
     @PutMapping("/{tagId}")
     public ResponseEntity<StatusResponse> update(@PathVariable long projectId, @PathVariable long tagId,
                                                  @RequestBody TagUpdateRequest tagUpdateRequest) {
-        tagService.update(tagId, tagUpdateRequest.getTagName());
+        tagService.update(tagId, projectId, tagUpdateRequest.getTagName());
         StatusResponse statusResponse = new StatusResponse(200, "프로젝트의 태그 수정");
         return ResponseEntity.ok().body(statusResponse);
     }
 
     //3. 삭제
     @DeleteMapping("/{tagId}")
-    public ResponseEntity<StatusResponse> delete(@PathVariable long tagId) {
-        tagService.delete(tagId);
+    public ResponseEntity<StatusResponse> delete(@PathVariable long projectId, @PathVariable long tagId) {
+        tagService.delete(projectId, tagId);
         StatusResponse statusResponse = new StatusResponse(200, "프로젝트의 태그 삭제");
         return ResponseEntity.ok().body(statusResponse);
     }

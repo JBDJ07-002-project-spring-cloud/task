@@ -4,7 +4,9 @@ import com.nhnacademy.miniDooray.entity.Project;
 import com.nhnacademy.miniDooray.entity.Tag;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
 import com.nhnacademy.miniDooray.exception.TagNotFoundException;
+import com.nhnacademy.miniDooray.exception.TagNotFoundInProjectException;
 import com.nhnacademy.miniDooray.repository.ProjectRepository;
+import com.nhnacademy.miniDooray.repository.ProjectTagRepository;
 import com.nhnacademy.miniDooray.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class TagService {
     private final TagRepository tagRepository;
     private final ProjectRepository projectRepository;
+    private final ProjectTagRepository projectTagRepository;
 
 
     public void create(long projectId, String tagName) {
@@ -34,17 +37,29 @@ public class TagService {
         tagRepository.save(tag);
     }
 
-    public void update(long tagId, String tagName) {
+    public void update(long tagId, long projectId, String tagName) {
         Tag tag = tagRepository.findById(tagId)
                         .orElseThrow(() -> new TagNotFoundException());
+        if (!tag.getProject().getId().equals(projectId)) {
+            throw new TagNotFoundInProjectException();
+        }
         tag.setTagName(tagName);
         tagRepository.save(tag);
     }
 
-    public void delete(long tagId) {
+    public void delete(long projectId, long tagId) {
         if (!tagRepository.existsById(tagId)) {
             throw new TagNotFoundException();
         }
+
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new TagNotFoundException());
+        if (!tag.getProject().getId().equals(projectId)) {
+            throw new TagNotFoundInProjectException();
+        }
+
+        projectTagRepository.deleteAllByTagId(tagId);
+
         tagRepository.deleteById(tagId);
     }
 }
