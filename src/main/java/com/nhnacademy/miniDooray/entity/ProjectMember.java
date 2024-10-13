@@ -32,5 +32,8 @@ public class ProjectMember {
 
     public enum Role {
         ADMIN, MEMBER
+    enum Role {
+        ADMIN,
+        MEMBER
     }
 }
