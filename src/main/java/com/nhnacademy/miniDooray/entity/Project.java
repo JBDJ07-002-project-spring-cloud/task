@@ -23,7 +23,7 @@ public class Project {
     private String projectName;
 
     @NotNull
-    @Enumerated(EnumType.STRING) //이걸 넣어줘야 String으로 db에 들어감
+    //@Enumerated(EnumType.STRING) //이걸 넣어줘야 String으로 db에 들어감
     @Setter
     private ProjectStatus projectStatus;
 

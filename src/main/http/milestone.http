@@ -26,13 +26,14 @@ Accept: application/json
   "milestoneName": ""
 }
 
+### 안댐
 ### 마일스톤 수정 성공
-PUT http://localhost:8080/project/2/milestone/1
+PUT http://localhost:8080/project/1/milestone/1
 Content-Type: application/json
 Accept: application/json
 
 {
-  "milestoneName": ""
+  "milestoneName": "111"
 }
 
 ### 마일스톤 수정 실패 - taskName 값이 없음 (1~50)

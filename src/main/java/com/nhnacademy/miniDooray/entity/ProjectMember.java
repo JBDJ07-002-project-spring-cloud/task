@@ -26,14 +26,11 @@ public class ProjectMember {
     private Project project;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Setter
     private Role memberRole;
 
     public enum Role {
         ADMIN, MEMBER
-    enum Role {
-        ADMIN,
-        MEMBER
     }
 }

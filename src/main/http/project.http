@@ -12,7 +12,7 @@ POST http://localhost:8080/project/4/invite
 Content-Type: application/json
 
 {
-  "userIds": [2]
+  "userIds": [3]
 }
 
 ### 프로젝트 상태 변경
