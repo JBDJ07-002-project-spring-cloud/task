@@ -30,7 +30,9 @@ public class TagController {
     //2. 수정
     @PutMapping("/{tagId}")
     public ResponseEntity<MessageResponseDto> update(@PathVariable long projectId, @PathVariable long tagId,
-                                                 @RequestBody TagUpdateRequest tagUpdateRequest) {
+                                                 @RequestBody TagUpdateRequest tagUpdateRequest,
+                                                     @RequestHeader(value = "X-USER-ID", required = true) String userId) {
+        commonService.isUserMemberOfProject(projectId, userId);
         tagService.update(tagId, projectId, tagUpdateRequest.getTagName());
         MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트의 태그 수정");
         return ResponseEntity.ok().body(statusResponse);
@@ -38,7 +40,9 @@ public class TagController {
 
     //3. 삭제
     @DeleteMapping("/{tagId}")
-    public ResponseEntity<MessageResponseDto> delete(@PathVariable long projectId, @PathVariable long tagId) {
+    public ResponseEntity<MessageResponseDto> delete(@PathVariable long projectId, @PathVariable long tagId,
+                                                     @RequestHeader(value = "X-USER-ID", required = true) String userId) {
+        commonService.isUserMemberOfProject(projectId, userId);
         tagService.delete(projectId, tagId);
         MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트의 태그 삭제");
         return ResponseEntity.ok().body(statusResponse);
