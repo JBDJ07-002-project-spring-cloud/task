@@ -29,7 +29,6 @@ X-USER-ID: 1
   "milestoneName": ""
 }
 
-### 안댐
 ### 마일스톤 수정 성공
 PUT http://localhost:8080/project/1/milestone/1
 Content-Type: application/json

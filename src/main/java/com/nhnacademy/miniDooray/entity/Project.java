@@ -23,13 +23,13 @@ public class Project {
     private String projectName;
 
     @NotNull
-    //@Enumerated(EnumType.STRING) //이걸 넣어줘야 String으로 db에 들어감
+    @Enumerated(EnumType.STRING)
     @Setter
     private ProjectStatus projectStatus;
 
     public enum ProjectStatus {
-        ACTIVE,  // 활성화 상태
-        SLEEP,     // 휴면 상태
-        END   // 종료 상태
+        ACTIVE,
+        SLEEP,
+        END
     }
 }

@@ -15,18 +15,20 @@ public class ProjectMember {
     @Column(name = "project_member_id")
     private long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_project_members_1"))
     @Setter
     private User member;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_project_members_1"))
     @Setter
     private Project project;
 
     @NotNull
-    //@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Setter
     private Role memberRole;
 

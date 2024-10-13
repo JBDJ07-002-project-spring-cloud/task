@@ -6,18 +6,18 @@ INSERT INTO `users` (`user_name`, `user_password`, `user_email`, `user_status`) 
 
 -- 프로젝트 데이터 삽입
 INSERT INTO `projects` (`project_name`, `project_status`) VALUES
-        ('Project 1', 0),
-('Project 2', 0),
-        ('Project 3', 2);
+        ('Project 1', 'ACTIVE'),
+('Project 2', 'ACTIVE'),
+        ('Project 3', 'END');
 
 -- 프로젝트 멤버 데이터 삽입
 INSERT INTO `project_members` (`user_id`, `project_id`, `member_role`) VALUES
-        (1, 1, 1),
-        (2, 1, 0),
-        (3, 1, 1),
-        (3, 2, 1),
-        (1, 2, 0),
-        (3, 3, 0);
+        (1, 1, 'MEMBER'),
+        (2, 1, 'ADMIN'),
+        (3, 1, 'MEMBER'),
+        (3, 2, 'MEMBER'),
+        (1, 2, 'ADMIN'),
+        (3, 3, 'ADMIN');
 
         -- 마일스톤 데이터 삽입
 INSERT INTO `milestones` (`project_id`, `milestone_name`) VALUES

@@ -1,6 +1,9 @@
 package com.nhnacademy.miniDooray.dto.message;
 
-public record MessageResponseDto(
-        int statusCode,
-        String message) {}
+import lombok.Value;
 
+@Value
+public class MessageResponseDto {
+    int statusCode;
+    String message;
+}

@@ -1,6 +1,6 @@
 package com.nhnacademy.miniDooray.controller;
 
-import com.nhnacademy.miniDooray.dto.StatusResponse;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.dto.tag.TagCreateRequest;
 import com.nhnacademy.miniDooray.dto.tag.TagUpdateRequest;
 import com.nhnacademy.miniDooray.service.CommonService;
@@ -23,7 +23,7 @@ public class TagController {
                                                  @RequestHeader(value = "X-USER-ID", required = true) String userId) {
         commonService.isUserMemberOfProject(projectId, userId);
         tagService.create(projectId, tagCreateRequest.getTagName());
-        StatusResponse statusResponse = new StatusResponse(200, "프로젝트의 태그 생성");
+        MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트의 태그 생성");
         return ResponseEntity.ok().body(statusResponse);
     }
 

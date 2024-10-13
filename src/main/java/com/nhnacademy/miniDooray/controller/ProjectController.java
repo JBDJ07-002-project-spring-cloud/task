@@ -2,7 +2,7 @@ package com.nhnacademy.miniDooray.controller;
 
 import com.nhnacademy.miniDooray.dto.project.ProjectCreateRequest;
 import com.nhnacademy.miniDooray.dto.project.ProjectUpdateRequest;
-import com.nhnacademy.miniDooray.dto.StatusResponse;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.entity.Project;
 import com.nhnacademy.miniDooray.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +19,9 @@ public class ProjectController {
 
     //1. 프로젝트 등록
     @PostMapping
-    public ResponseEntity<StatusResponse> create(@RequestBody ProjectCreateRequest projectCreateRequest) {
+    public ResponseEntity<MessageResponseDto> create(@RequestBody ProjectCreateRequest projectCreateRequest) {
         projectService.create(projectCreateRequest.getProjectName(), projectCreateRequest.getUserId());
-        StatusResponse statusResponse = new StatusResponse(200, "OK");
+        MessageResponseDto statusResponse = new MessageResponseDto(200, "OK");
         return ResponseEntity.ok(statusResponse);
     }
 
@@ -31,10 +31,10 @@ public class ProjectController {
 
     //3. 프로젝트 상태 수정
     @PatchMapping("/{projectId}")
-    public ResponseEntity<StatusResponse> update(@PathVariable long projectId,
-                                                 @RequestBody ProjectUpdateRequest projectUpdateRequest) {
+    public ResponseEntity<MessageResponseDto> update(@PathVariable long projectId,
+                                                     @RequestBody ProjectUpdateRequest projectUpdateRequest) {
         projectService.update(projectId, projectUpdateRequest.getProjectStatus());
-        StatusResponse statusResponse = new StatusResponse(200, "프로젝트 상태 수정 완료");
+        MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트 상태 수정 완료");
         return ResponseEntity.ok(statusResponse);
     }
 
