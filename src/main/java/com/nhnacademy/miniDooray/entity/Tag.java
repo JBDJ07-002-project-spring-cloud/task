@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "tags")
 public class Tag {
 
@@ -23,10 +23,14 @@ public class Tag {
     private Long id;
 
     @ManyToOne
+    @Setter
+
     @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_tags_1"))
     private Project project;
 
     @NotNull
+    @Setter
     @Size(max = 50)
+    @Column(name = "tag_name")
     private String tagName;
 }

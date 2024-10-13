@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "projects")
 public class Project {
 
@@ -19,9 +19,12 @@ public class Project {
 
     @NotNull
     @Size(max = 100)
+    @Setter
     private String projectName;
 
     @NotNull
+    @Enumerated(EnumType.STRING) //이걸 넣어줘야 String으로 db에 들어감
+    @Setter
     private ProjectStatus projectStatus;
 
     public enum ProjectStatus {

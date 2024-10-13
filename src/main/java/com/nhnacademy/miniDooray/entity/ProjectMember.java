@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "project_members")
 public class ProjectMember {
     @Id
@@ -17,15 +17,21 @@ public class ProjectMember {
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_project_members_1"))
+    @Setter
     private User member;
 
     @ManyToOne
     @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_project_members_1"))
+    @Setter
     private Project project;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Setter
     private Role memberRole;
 
+    public enum Role {
+        ADMIN, MEMBER
     enum Role {
         ADMIN,
         MEMBER
