@@ -1,8 +1,7 @@
 package com.nhnacademy.miniDooray.controller.advice;
 
-import com.nhnacademy.miniDooray.dto.StatusResponse;
-import com.nhnacademy.miniDooray.dto.message.MessageResponseArrayDto;
 import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseArrayDto;
 import com.nhnacademy.miniDooray.exception.MemberAlreadyExistsInProjectException;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -19,8 +18,8 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<MessageResponseDto> responseStatusException(ResponseStatusException e){
-        MessageResponseDto messageResponseDto = new MessageResponseDto(
+    public ResponseEntity<com.nhnacademy.miniDooray.dto.message.MessageResponseDto> responseStatusException(ResponseStatusException e){
+        com.nhnacademy.miniDooray.dto.message.MessageResponseDto messageResponseDto = new com.nhnacademy.miniDooray.dto.message.MessageResponseDto(
             e.getStatusCode().value(),e.getReason()
         );
 
@@ -43,14 +42,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MemberAlreadyExistsInProjectException.class)
-    public ResponseEntity<StatusResponse> handleMemberAlreadyExistsInProjectException(MemberAlreadyExistsInProjectException ex) {
-        StatusResponse statusResponse = new StatusResponse(400, "이미 멤버로 존재합니다.");
+    public ResponseEntity<MessageResponseDto> handleMemberAlreadyExistsInProjectException(MemberAlreadyExistsInProjectException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(400, "이미 멤버로 존재합니다.");
         return ResponseEntity.status(400).body(statusResponse);
     }
 
     @ExceptionHandler(ProjectNotFoundException.class)
-    public ResponseEntity<StatusResponse> handleProjectNotFound(ProjectNotFoundException ex) {
-        StatusResponse statusResponse = new StatusResponse(404, "프로젝트가 존재하지 않습니다.");
+    public ResponseEntity<MessageResponseDto> handleProjectNotFound(ProjectNotFoundException ex) {
+        MessageResponseDto statusResponse = new MessageResponseDto(404, "프로젝트가 존재하지 않습니다.");
         return ResponseEntity.status(404).body(statusResponse);
     }
 

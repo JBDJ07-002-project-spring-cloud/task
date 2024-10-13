@@ -1,6 +1,6 @@
 package com.nhnacademy.miniDooray.controller;
 
-import com.nhnacademy.miniDooray.dto.StatusResponse;
+import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.dto.tag.TagCreateRequest;
 import com.nhnacademy.miniDooray.dto.tag.TagUpdateRequest;
 import com.nhnacademy.miniDooray.service.TagService;
@@ -16,27 +16,27 @@ public class TagController {
 
     //1. 등록
     @PostMapping
-    public ResponseEntity<StatusResponse> create(@PathVariable long projectId,
-                                                 @RequestBody TagCreateRequest tagCreateRequest) {
+    public ResponseEntity<MessageResponseDto> create(@PathVariable long projectId,
+                                                     @RequestBody TagCreateRequest tagCreateRequest) {
         tagService.create(projectId, tagCreateRequest.getTagName());
-        StatusResponse statusResponse = new StatusResponse(200, "프로젝트의 태그 생성");
+        MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트의 태그 생성");
         return ResponseEntity.ok().body(statusResponse);
     }
 
     //2. 수정
     @PutMapping("/{tagId}")
-    public ResponseEntity<StatusResponse> update(@PathVariable long projectId, @PathVariable long tagId,
-                                                 @RequestBody TagUpdateRequest tagUpdateRequest) {
+    public ResponseEntity<MessageResponseDto> update(@PathVariable long projectId, @PathVariable long tagId,
+                                                     @RequestBody TagUpdateRequest tagUpdateRequest) {
         tagService.update(tagId, tagUpdateRequest.getTagName());
-        StatusResponse statusResponse = new StatusResponse(200, "프로젝트의 태그 수정");
+        MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트의 태그 수정");
         return ResponseEntity.ok().body(statusResponse);
     }
 
     //3. 삭제
     @DeleteMapping("/{tagId}")
-    public ResponseEntity<StatusResponse> delete(@PathVariable long tagId) {
+    public ResponseEntity<MessageResponseDto> delete(@PathVariable long tagId) {
         tagService.delete(tagId);
-        StatusResponse statusResponse = new StatusResponse(200, "프로젝트의 태그 삭제");
+        MessageResponseDto statusResponse = new MessageResponseDto(200, "프로젝트의 태그 삭제");
         return ResponseEntity.ok().body(statusResponse);
     }
 }
