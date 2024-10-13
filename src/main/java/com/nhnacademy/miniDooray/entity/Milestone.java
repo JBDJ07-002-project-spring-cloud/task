@@ -15,17 +15,22 @@ import lombok.NoArgsConstructor;
 @Table(name = "milestones")
 public class Milestone {
 
+    public Milestone(Project project, String milestoneName) {
+        this.project = project;
+        this.milestoneName = milestoneName;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "milestone_id")
     private long id;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_milestones_1"))
     private Project project;
 
     @NotNull
-    @Size(max = 50)
+    @Size(min = 1, max = 50)
     private String milestoneName;
 
 }

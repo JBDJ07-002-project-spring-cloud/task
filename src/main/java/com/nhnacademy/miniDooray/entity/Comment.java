@@ -17,16 +17,16 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comments_id")
-    private Long id;
 
-    @NotNull
-    @ManyToOne
-    private
-    Task task;
+    @Column(name = "comment_id")
+    private long id;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "task_id", foreignKey = @ForeignKey(name = "FK_tasks_TO_comments_1"))
+    private Task task;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_comments_1"))
     private User user;
 
     @NotNull

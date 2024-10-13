@@ -1,0 +1,23 @@
+### 1. 프로젝트 태그 등록 (플젝 아이디, 태그이름 보내기)
+POST http://localhost:8080/project/4/tag
+Content-Type: application/json
+
+{
+  "tagName": "yourTagName"
+}
+
+
+
+
+### 2. 프로젝트 태그 수정 -> 해당 멤버만 가능..추후 기능 확장
+PUT http://localhost:8080/project/4/tag/3
+Content-Type: application/json
+
+{
+  "tagName": "수정한 태그"
+}
+
+### TODO 안됌 !!!! (연관 관계 생각할것)
+### 3. 프로젝트 태그 삭제 -> 해당 멤버여야 가능해야함. (4번 플젝)
+DELETE http://localhost:8080/project/4/tag/3
+Content-Type: application/json

@@ -7,26 +7,30 @@ import lombok.*;
 @Entity
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "project_members")
 public class ProjectMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_member_id")
-    private String id;
+    private long id;
 
-    @NotNull
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_users_TO_project_members_1"))
+    @Setter
+    private User member;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(name = "FK_projects_TO_project_members_1"))
+    @Setter
     private Project project;
 
     @NotNull
+    //@Enumerated(EnumType.STRING)
+    @Setter
     private Role memberRole;
 
-    enum Role {
+    public enum Role {
         ADMIN, MEMBER
     }
 }
