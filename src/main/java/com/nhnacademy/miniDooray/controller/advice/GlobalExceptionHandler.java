@@ -6,6 +6,7 @@ import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.exception.MemberAlreadyExistsInProjectException;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
 import com.nhnacademy.miniDooray.exception.TagNotFoundInProjectException;
+import com.nhnacademy.miniDooray.exception.UserNotInProjectException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,4 +61,11 @@ public class GlobalExceptionHandler {
         StatusResponse statusResponse = new StatusResponse(404, "해당 프로젝트에 해당 태그가 존재하지 않습니다.");
         return ResponseEntity.status(404).body(statusResponse);
     }
+
+    @ExceptionHandler(UserNotInProjectException.class)
+    public ResponseEntity<StatusResponse> handleUserNotInProject(UserNotInProjectException ex) {
+        StatusResponse statusResponse = new StatusResponse(404, "유저가 해당 프로젝트의 멤버가 아닙니다.");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(statusResponse);
+    }
+
 }
