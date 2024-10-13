@@ -4,6 +4,7 @@ import com.nhnacademy.miniDooray.dto.message.MessageResponseDto;
 import com.nhnacademy.miniDooray.dto.message.MessageResponseArrayDto;
 import com.nhnacademy.miniDooray.exception.MemberAlreadyExistsInProjectException;
 import com.nhnacademy.miniDooray.exception.ProjectNotFoundException;
+import com.nhnacademy.miniDooray.exception.TagNotFoundInProjectException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,5 +54,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(statusResponse);
     }
 
-
+    @ExceptionHandler(TagNotFoundInProjectException.class)
+    public ResponseEntity<StatusResponse> handleTagNotFoundInProject(TagNotFoundInProjectException ex) {
+        StatusResponse statusResponse = new StatusResponse(404, "해당 프로젝트에 해당 태그가 존재하지 않습니다.");
+        return ResponseEntity.status(404).body(statusResponse);
+    }
 }
