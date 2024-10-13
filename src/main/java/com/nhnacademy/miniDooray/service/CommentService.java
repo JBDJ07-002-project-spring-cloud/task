@@ -5,7 +5,6 @@ import com.nhnacademy.miniDooray.entity.Comment;
 import com.nhnacademy.miniDooray.entity.Task;
 
 public interface CommentService {
-    Comment createComment(Task task, CommentCreateRequestDto commentCreateRequestDto);
-    Comment updateComment(Long commentId, String newContent);
-    void deleteComment(Long commentId);
-}
+    Comment createComment(Task task, Long projectId,CommentCreateRequestDto commentCreateRequestDto);
+    void deleteComment(Long projectId, Long taskId,Long commentId);
+    Comment updateComment(Long projectId,Long taskId,Long commentId, String newContent);
