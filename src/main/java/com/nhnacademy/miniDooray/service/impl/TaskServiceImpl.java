@@ -90,7 +90,6 @@ public class TaskServiceImpl implements TaskService {
     public void modifyTask(long projectId, long taskId, TaskModifyRequestDto requestDto) {
         Project project = projectRepository.findProjectById(projectId);
         Task task = taskRepository.findByProjectIdAndId(projectId, taskId);
-
         Milestone milestone = milestoneRepository.findByProjectIdAndMilestoneName(projectId, requestDto.milestone());
 
         if (project == null) {
@@ -201,6 +200,16 @@ public class TaskServiceImpl implements TaskService {
         return tags.stream()
                 .map(tag -> tag.getTag().getTagName())
                 .collect(Collectors.joining(", "));
+    }
+
+    public Task getTaskById(long projectId, long taskId){
+        Task task = taskRepository.findByProjectIdAndId(projectId, taskId);
+
+        if(task == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid task ID");
+        }
+
+        return task;
     }
 
 }
