@@ -14,7 +14,8 @@ spring:
       data-locations: classpath:sql/data.sql
 
 ---
-
+server:
+    port: 8082
 spring:
   config:
     activate:
